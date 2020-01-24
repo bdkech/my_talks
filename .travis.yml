@@ -1,0 +1,18 @@
+services:
+    - docker
+language: python
+python:
+    - "3.6"
+install:
+    - docker build -t bdkech/reveal-md .
+script:
+    # Create the docs directory. This is where we will be publishing from
+    # (see the "deploy" section below).
+    - mkdir -p docs/
+    # Use reveal-md to generate static docs.
+    - docker run -v $PWD:/slides -it -p 8080:1948 bdkech/reveal reveal-md slides.md --static docs --disable-auto-open --theme white
+    - cp -r assets docs/.
+    # Use reveal-md to generate PDF.
+    - docker run -v $PWD:/slides -it -p 8080:1948 bdkech/reveal reveal-md slides/slides.md --disable-auto-open --theme white --print slides.pdf
+    - cp slides.pdf docs/.
+
