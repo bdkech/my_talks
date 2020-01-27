@@ -4,7 +4,7 @@ language: python
 python:
     - "3.6"
 install:
-    - docker build -t bdkech/reveal .
+    - docker build -t bdkech/reveal-md .
 script:
     # Create the docs directory. This is where we will be publishing from
     # (see the "deploy" section below).
